@@ -11,9 +11,13 @@ fi
 
 echo -e "\n\n\nClear/Create directory of install drupal for tests"
 mkdir -p drupal
+chmod 775 -R drupal
 rm -rf drupal/*
 
 DRUPAL_CORE_CONSTRAINT="${DRUPAL_CORE_CONSTRAINT:=^8.9}"
+#SIMPLETEST_DB=sqlite://web/sites/default/files/.sqlite
+#export SIMPLETEST_DB
+
 echo -e "\n\n\nInstalling composer"
 cp composer.dev.json drupal/composer.json
 cd drupal

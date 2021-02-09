@@ -1,0 +1,6 @@
+*
+*/
+!.gitignore
+!.envrc
+!setup.sh
+!composer.dev.json

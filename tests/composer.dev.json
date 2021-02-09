@@ -1,0 +1,71 @@
+{
+  "name": "drupal/devel",
+  "type": "drupal-module",
+  "description": "Various blocks, pages, and functions for developers.",
+  "license": "GPL-2.0-or-later",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "path",
+      "url": "../."
+    }
+  ],
+  "require": {
+    "lucacracco/robo-drupal": "dev-master"
+  },
+  "require-dev": {
+    "drupalspoons/composer-plugin": "dev-master",
+    "composer/installers": "^1",
+    "drupal/core-composer-scaffold": "^8.8",
+    "cweagans/composer-patches": "~1.0",
+    "drupal/core-recommended": "^8.8",
+    "drupal/core-dev": "^8.8",
+    "drush/drush": "^10",
+    "php-parallel-lint/php-parallel-lint": "^1.2",
+    "drupal/core": "^8.8"
+  },
+  "scripts": {
+    "drush": "vendor/bin/drush",
+    "si": "drush si -v --db-url=${SIMPLETEST_DB:-mysql://root:password@mariadb/db}"
+  },
+  "config": {
+    "process-timeout": 36000
+  },
+  "extra": {
+    "installer-paths": {
+      "web/core": [
+        "type:drupal-core"
+      ],
+      "web/libraries/{$name}": [
+        "type:drupal-library"
+      ],
+      "web/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "web/profiles/{$name}": [
+        "type:drupal-profile"
+      ],
+      "web/themes/{$name}": [
+        "type:drupal-theme"
+      ],
+      "drush/{$name}": [
+        "type:drupal-drush"
+      ]
+    },
+    "drupal-scaffold": {
+      "locations": {
+        "web-root": "web/"
+      }
+    },
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9 || ^10"
+      }
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

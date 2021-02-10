@@ -1,6 +1,6 @@
 {
   "name": "lucacracco/robo-drupal",
-  "type": "library",
+  "type": "composer-plugin",
   "description": "My Robo Tasks/hooks for Drupal.",
   "keywords": [
     "drupal",
@@ -16,34 +16,20 @@
   ],
   "require": {
     "php": ">=7.2",
+    "composer/composer": "^2.0",
+    "composer-plugin-api": "^2.0",
     "consolidation/robo": "~1",
+    "drush/drush": "^9.7.1 | ^10.0.0",
     "grasmash/yaml-expander": "^1.4",
     "heydon/robo-twig": "dev-master",
     "webflo/drupal-finder": "^1.0"
   },
-  "require-dev":{
-    "composer/composer": "^1.0 || ^2.0",
-    "composer/installers": "^1",
-    "composer-plugin-api": "^1.0 || ^2.0",
-    "oohology/gitignorewriter": "^1.1"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "LucaCracco\\RoboDrupal\\": "./src/"
     }
   },
-  "bin": [
-    "bin/spoon"
-  ],
   "extra": {
-    "class": "LucaCracco\\RoboDrupal\\Development\\\\Plugin"
-  },
-  "scripts": {
-    "post-package-install": [
-      "LucaCracco\\RoboDrupal\\Development\\Plugin::postPackageInstall"
-    ]
+    "class": "LucaCracco\\RoboDrupal\\Plugin"
   }
-
 }

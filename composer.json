@@ -1,6 +1,6 @@
 {
   "name": "lucacracco/robo-drupal",
-  "type": "composer-plugin",
+  "type": "library",
   "description": "My Robo Tasks/hooks for Drupal.",
   "keywords": [
     "drupal",
@@ -29,7 +29,6 @@
       "LucaCracco\\RoboDrupal\\": "./src/"
     }
   },
-  "extra": {
-    "class": "LucaCracco\\RoboDrupal\\Plugin"
-  }
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

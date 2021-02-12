@@ -1,7 +1,7 @@
 {
   "name": "lucacracco/robo-drupal",
-  "type": "library",
-  "description": "My Robo Tasks/hooks for Drupal.",
+  "description": "A my custom Robo task runner for Drupal8.",
+  "type": "robo-tasks",
   "keywords": [
     "drupal",
     "deployment",
@@ -16,8 +16,6 @@
   ],
   "require": {
     "php": ">=7.2",
-    "composer/composer": "^2.0",
-    "composer-plugin-api": "^2.0",
     "consolidation/robo": "~1",
     "drush/drush": "^9.7.1 | ^10.0.0",
     "grasmash/yaml-expander": "^1.4",

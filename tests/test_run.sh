@@ -10,6 +10,7 @@ fi
 
 FOLDER_RUN_TEST=${FOLDER_RUN_TEST:='/var/www/html/robo-drupal-demo'}
 FOLDER_ROBO_DRUPAL=${FOLDER_ROBO_DRUPAL:='/var/www/html/robo-drupal'}
+USE_LOCAL_ROBO_DRUPAL=${USE_LOCAL_ROBO_DRUPAL}
 DRUPAL_CORE_CONSTRAINT="${DRUPAL_CORE_CONSTRAINT:=^8.9}"
 
 echo -e "Clear/Create directory of install drupal for tests\n"
@@ -28,7 +29,7 @@ composer require --no-interaction --quiet \
   drupal/core:$DRUPAL_CORE_CONSTRAINT
 
 echo -e "\nInstalling RoboDrupal\n"
-if [ -n "$FOLDER_ROBO_DRUPAL" ]; then
+if [ -n "$USE_LOCAL_ROBO_DRUPAL" ]; then
   echo -e "\nSet custom repository for RoboDrupal\n"
   composer config repositories.0 path "$FOLDER_ROBO_DRUPAL"
 fi
@@ -54,15 +55,17 @@ echo -e "\n\nRebuild cache\n\n"
 echo -e "\n\nExport configurations\n\n"
 ./vendor/bin/robo config:export
 
-#echo -e "\n\nInstall Drupal from configurations\n\n"
-#./vendor/bin/robo install:config minimal
-#
-#echo -e "\n\nInstall Drupal Standard\n\n"
-#./vendor/bin/robo install standard
-#
-#echo -e "\n\nExport database\n\n"
-#./vendor/bin/robo database:export /tmp
+echo -e "\n\nInstall Drupal from configurations\n\n"
+./vendor/bin/robo install:config minimal
 
-# TODO: add test other commands!
+echo -e "\n\nUpdate configuration\n\n"
+./vendor/bin/drush config-set --no-interaction system.site name "Custom name"
+
+echo -e "\n\nDeploy\n\n"
+./vendor/bin/robo deploy
+
+echo -e "\n\nExport database\n\n"
+./vendor/bin/robo database:export /tmp
+
 #echo -e "\n\nInstall Drupal from database\n\n"
 #./vendor/bin/robo install:database [dump]

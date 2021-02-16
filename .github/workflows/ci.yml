@@ -21,11 +21,9 @@ jobs:
           ini-values: max_execution_time=180
           # Disable Xdebug for better performance.
           coverage: none
-      - name: Ls
-        run: ls -alt
       - name: Run tests
         run: ./tests/test_run.sh
         env:
           FOLDER_RUN_TEST: ../robo-drupal-demo
-          FOLDER_ROBO_DRUPAL: .
+          FOLDER_ROBO_DRUPAL: ../robo-drupal
           DRUPAL_CORE_CONSTRAINT: 8.9

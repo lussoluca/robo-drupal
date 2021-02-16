@@ -39,8 +39,6 @@ echo -e "\nUpdating dependencies\n"
 composer update --no-interaction --quiet
 
 echo -e "\n\nCopy template settings\n"
-ls -alt "$FOLDER_ROBO_DRUPAL"
-ls -alt "$FOLDER_RUN_TEST"
 cp -v "$FOLDER_ROBO_DRUPAL/tests/template/tpl.settings.php" "$FOLDER_RUN_TEST/web/sites/default/tpl.settings.php"
 cp -v "$FOLDER_ROBO_DRUPAL/tests/template/tpl.services.yml" "$FOLDER_RUN_TEST/web/sites/default/tpl.services.yml"
 

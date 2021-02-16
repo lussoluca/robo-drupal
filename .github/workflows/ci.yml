@@ -21,6 +21,8 @@ jobs:
           ini-values: max_execution_time=180
           # Disable Xdebug for better performance.
           coverage: none
+      - name: Ls
+        run: ls -alt
       - name: Run tests
         run: ./tests/test_run.sh
         env:

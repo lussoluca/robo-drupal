@@ -9,7 +9,6 @@ DRUPAL_CORE_CONSTRAINT="${DRUPAL_CORE_CONSTRAINT:=^8.7}"
 echo -e "Run tests with PHP $PHP_VERSION for Drupal $DRUPAL_CORE_CONSTRAINT\n"
 docker run -it --rm -v "$PWD":/var/www/html/robo-drupal -w /var/www/html \
   --env DRUPAL_CORE_CONSTRAINT=$DRUPAL_CORE_CONSTRAINT \
-  --env USE_LOCAL_ROBO_DRUPAL=true \
   wodby/drupal-php:$PHP_VERSION \
   /bin/bash -c "sudo apk update && sudo apk add sqlite \
   && cd robo-drupal \

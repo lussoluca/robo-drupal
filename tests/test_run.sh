@@ -10,7 +10,7 @@ fi
 
 FOLDER_RUN_TEST=${FOLDER_RUN_TEST:='/var/www/html/robo-drupal-demo'}
 FOLDER_ROBO_DRUPAL=${FOLDER_ROBO_DRUPAL:='/var/www/html/robo-drupal'}
-USE_LOCAL_ROBO_DRUPAL=${USE_LOCAL_ROBO_DRUPAL}
+USE_LOCAL_ROBO_DRUPAL=${USE_LOCAL_ROBO_DRUPAL:=true}
 DRUPAL_CORE_CONSTRAINT="${DRUPAL_CORE_CONSTRAINT:=^8.9}"
 
 echo -e "Clear/Create directory of install drupal for tests\n"
@@ -18,7 +18,7 @@ mkdir -p $FOLDER_RUN_TEST
 chmod 775 -R $FOLDER_RUN_TEST
 rm -Rf $FOLDER_RUN_TEST
 
-echo -e "\nInstalling Drupal $DRUPAL_CORE_CONSTRAINT\n"
+echo -e "\nInstalling Drupal $DRUPAL_CORE_CONSTRAINT on $FOLDER_RUN_TEST\n"
 composer create-project --quiet drupal/recommended-project:$DRUPAL_CORE_CONSTRAINT $FOLDER_RUN_TEST
 cd $FOLDER_RUN_TEST
 echo -e "\nInstalling Requirements\n"

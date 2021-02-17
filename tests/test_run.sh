@@ -8,39 +8,36 @@ if ! command -v composer &>/dev/null; then
   exit
 fi
 
-FOLDER_RUN_TEST=${FOLDER_RUN_TEST:='/var/www/html/robo-drupal-demo'}
-FOLDER_ROBO_DRUPAL=${FOLDER_ROBO_DRUPAL:='/var/www/html/robo-drupal'}
-USE_LOCAL_ROBO_DRUPAL=${USE_LOCAL_ROBO_DRUPAL:=true}
+FOLDER_TESTS=${FOLDER_TESTS:='/var/www/html/robo-drupal-demo'}
 DRUPAL_CORE_CONSTRAINT="${DRUPAL_CORE_CONSTRAINT:=^8.9}"
 
 echo -e "Clear/Create directory of install drupal for tests\n"
-mkdir -p $FOLDER_RUN_TEST
-chmod 775 -R $FOLDER_RUN_TEST
-rm -Rf $FOLDER_RUN_TEST
+mkdir -p $FOLDER_TESTS
+chmod 775 -R $FOLDER_TESTS
+rm -Rf $FOLDER_TESTS
 
-echo -e "\nInstalling Drupal $DRUPAL_CORE_CONSTRAINT on $FOLDER_RUN_TEST\n"
-composer create-project --quiet drupal/recommended-project:$DRUPAL_CORE_CONSTRAINT $FOLDER_RUN_TEST
-cd $FOLDER_RUN_TEST
+echo -e "\nInstalling Drupal $DRUPAL_CORE_CONSTRAINT on $FOLDER_TESTS\n"
+composer create-project --quiet drupal/recommended-project:$DRUPAL_CORE_CONSTRAINT $FOLDER_TESTS
+
 echo -e "\nInstalling Requirements\n"
-composer require --no-interaction --quiet \
+composer require --no-interaction --quiet --working-dir=$FOLDER_TESTS \
   drupal/core-recommended:$DRUPAL_CORE_CONSTRAINT \
   drupal/core-dev:$DRUPAL_CORE_CONSTRAINT \
   drupal/core-composer-scaffold:$DRUPAL_CORE_CONSTRAINT \
   drupal/core:$DRUPAL_CORE_CONSTRAINT
 
-echo -e "\nInstalling RoboDrupal\n"
-if [ -n "$USE_LOCAL_ROBO_DRUPAL" ]; then
-  echo -e "\nSet custom repository for RoboDrupal\n"
-  composer config repositories.0 path "$FOLDER_ROBO_DRUPAL"
-fi
-composer require --no-interaction --quiet lucacracco/robo-drupal:dev-master
+echo -e "\nInstalling RoboDrupal: set custom repository for RoboDrupal\n"
+composer config --working-dir=$FOLDER_TESTS repositories.0 path "${PWD}"
+composer require --no-interaction --working-dir=$FOLDER_TESTS lucacracco/robo-drupal:dev-master
 
 echo -e "\nUpdating dependencies\n"
-composer update --no-interaction --quiet
+composer update --no-interaction --quiet --working-dir=$FOLDER_TESTS
 
 echo -e "\n\nCopy template settings\n"
-cp -v "$FOLDER_ROBO_DRUPAL/tests/template/tpl.settings.php" "$FOLDER_RUN_TEST/web/sites/default/tpl.settings.php"
-cp -v "$FOLDER_ROBO_DRUPAL/tests/template/tpl.services.yml" "$FOLDER_RUN_TEST/web/sites/default/tpl.services.yml"
+cp -v "./tests/template/tpl.settings.php" "$FOLDER_TESTS/web/sites/default/tpl.settings.php"
+cp -v "./tests/template/tpl.services.yml" "$FOLDER_TESTS/web/sites/default/tpl.services.yml"
+
+cd "$FOLDER_TESTS"
 
 echo -e "\n\nScaffold and install Drupal minimal\n\n"
 ./vendor/bin/robo scaffold

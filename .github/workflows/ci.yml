@@ -24,6 +24,5 @@ jobs:
       - name: Run tests
         run: ./tests/test_run.sh
         env:
-          FOLDER_RUN_TEST: ../robo-drupal-demo
-          FOLDER_ROBO_DRUPAL: ../robo-drupal
-          DRUPAL_CORE_CONSTRAINT: 8.9
+          FOLDER_TESTS: ~/robo-drupal-demo
+          DRUPAL_CORE_CONSTRAINT: 8.7
